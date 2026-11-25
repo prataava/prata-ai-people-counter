@@ -30,7 +30,7 @@
   --text:#eef4f6; --muted:rgba(238,244,246,.66); --accent:rgb(238 244 246/.92); --accent-fg:#06121a; --accent2:rgb(6 16 22/.52);
   --on:rgb(238 244 246/.92); --on-text:#06121a; --focus:#9ff3e4; --plate:rgb(6 16 22/.52); --faint:rgba(238,244,246,.14);
   --in:#4ade80; --out:#fbbf24; --danger:#f87171; --danger-fill:#7f1d1d; --warn:#f59e0b; --blue:#93c5fd;
-  --radius:26px; color-scheme:dark;
+  --radius:26px;--spring:cubic-bezier(.3,1.35,.4,1); color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:clip}
@@ -49,6 +49,16 @@ body::before{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none
     radial-gradient(26% 24% at 30% 82%, rgba(255,45,149,.12), transparent 70%);
   animation:plasmaDrift 56s ease-in-out infinite alternate;will-change:transform}
 @keyframes plasmaDrift{from{transform:translate3d(-2%,-1%,0) scale(1)}50%{transform:translate3d(2%,2%,0) scale(1.06)}to{transform:translate3d(-1%,3%,0) scale(1.02)}}
+/* Lapisan plasma kedua: hanyut berlawanan arah (140 dtk) + shimmer denyut (24 dtk). */
+body::after{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(36% 30% at 78% 78%, rgba(176,75,214,.34), transparent 70%),
+    radial-gradient(30% 26% at 22% 68%, rgba(15,94,70,.4), transparent 70%),
+    radial-gradient(24% 22% at 55% 12%, rgba(255,45,149,.14), transparent 70%);
+  animation:plasmaDrift2 140s ease-in-out infinite alternate, plasmaShimmer 24s ease-in-out infinite;
+  will-change:transform,opacity}
+@keyframes plasmaDrift2{from{transform:translate3d(2%,2%,0) scale(1.03)}50%{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(1%,-2%,0) scale(1.05)}}
+@keyframes plasmaShimmer{0%,100%{opacity:.55}50%{opacity:.95}}
 h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;letter-spacing:.01em}
 a{color:#fff}
 button{min-height:44px;font-family:inherit}
@@ -75,19 +85,19 @@ button{min-height:44px;font-family:inherit}
 .tabs button{flex:1 1 auto;border:0;background:transparent;border-radius:999px;font-weight:600;font-size:13.5px;cursor:pointer;color:rgba(238,244,246,.55);padding:0 12px;white-space:nowrap;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
 .tabs button:not(.active):hover{color:var(--text)}
 .tabs button.active{background:var(--on);color:var(--on-text)}
-.tabpage{display:none}.tabpage.active{display:block;animation:pageIn .25s cubic-bezier(.16,1,.3,1)}
-@keyframes pageIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.tabpage{display:none}.tabpage.active{display:block;animation:pageIn .28s var(--spring)}
+@keyframes pageIn{from{opacity:0;transform:translateY(6px) scale(.995)}60%{opacity:1;transform:translateY(-1.5px) scale(1.002)}to{opacity:1;transform:none}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
 @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr);gap:8px}}
-.stat{background:var(--plate);border:1px solid var(--faint);border-radius:16px;padding:12px 13px 10px;transition:transform .2s cubic-bezier(.16,1,.3,1),border-color .2s cubic-bezier(.16,1,.3,1),box-shadow .2s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 28px rgba(0,0,0,.28),0 0 22px rgba(176,75,214,.05);backdrop-filter:blur(10px)}
-.stat:hover{transform:translateY(-2px);border-color:rgba(238,244,246,.28)}
+.stat{background:var(--plate);border:1px solid var(--faint);border-radius:16px;padding:12px 13px 10px;transition:transform .22s var(--spring),border-color .2s ease,box-shadow .2s ease;box-shadow:0 8px 28px rgba(0,0,0,.28),0 0 22px rgba(176,75,214,.05);backdrop-filter:blur(10px)}
+.stat:hover{transform:translateY(-3px) scale(1.008);border-color:rgba(238,244,246,.28)}
 .stat label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--muted);display:block}
 .stat b{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:29px;line-height:1;display:block;margin-top:6px;letter-spacing:-.03em}
 .stat b.small{font-size:18px;padding-top:5px}
 .stat span{font-size:12px;color:var(--muted);display:block;margin-top:4px;line-height:1.45}
 .stat.in b{color:var(--in)}.stat.out b{color:var(--out)}
-.stat b.bump{animation:bump .25s cubic-bezier(.16,1,.3,1)}
-@keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.08)}100%{transform:scale(1)}}
+.stat b.bump{animation:bump .3s var(--spring)}
+@keyframes bump{0%{transform:scale(1)}35%{transform:scale(1.12)}65%{transform:scale(.98)}100%{transform:scale(1)}}
 .camCard{border-radius:26px;overflow:hidden;border:1px solid transparent;position:relative;
   background:linear-gradient(#050b12,#050b12) padding-box,linear-gradient(135deg,rgba(95,212,255,.45),rgba(176,75,214,.38) 55%,rgba(255,45,149,.35)) border-box;
   box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 44px rgba(176,75,214,.08)}
@@ -109,7 +119,7 @@ canvas#overlay.editable{pointer-events:auto;touch-action:none;cursor:crosshair}
 .flashCross.show{opacity:1}
 .flashCross.suspect{background:#2a2110;color:#fcd34d}
 .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.btn{appearance:none;border:1px solid rgba(238,244,246,.12);background:var(--surface);color:var(--text);border-radius:999px;padding:0 16px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;transition:transform .15s cubic-bezier(.16,1,.3,1),background-color .15s cubic-bezier(.16,1,.3,1),border-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(10px)}
+.btn{appearance:none;border:1px solid rgba(238,244,246,.12);background:var(--surface);color:var(--text);border-radius:999px;padding:0 16px;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;transition:transform .2s var(--spring),background-color .15s ease,border-color .15s ease,color .15s ease;backdrop-filter:blur(10px)}
 .btn:hover{border-color:rgba(238,244,246,.28)}
 .btn:active{transform:scale(.97)}
 .btn.primary{background:var(--on);color:var(--on-text);border-color:transparent;flex:1;justify-content:center;min-width:150px}
@@ -121,10 +131,10 @@ canvas#overlay.editable{pointer-events:auto;touch-action:none;cursor:crosshair}
 .btn.ghost{background:transparent}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 @media(max-width:720px){.grid{grid-template-columns:1fr}}
-.panel{border:1px solid transparent;border-radius:var(--radius);padding:16px;margin-top:12px;transition:transform .2s cubic-bezier(.16,1,.3,1),border-color .2s cubic-bezier(.16,1,.3,1),box-shadow .2s cubic-bezier(.16,1,.3,1);
+.panel{border:1px solid transparent;border-radius:var(--radius);padding:16px;margin-top:12px;transition:transform .22s var(--spring),border-color .2s ease,box-shadow .2s ease;
   background:linear-gradient(rgb(6 16 22/.52),rgb(6 16 22/.52)) padding-box,linear-gradient(135deg,rgba(95,212,255,.38),rgba(176,75,214,.32) 55%,rgba(255,45,149,.30)) border-box;
   box-shadow:0 10px 40px rgba(5,11,18,.45),0 0 24px rgba(176,75,214,.06);backdrop-filter:blur(12px)}
-.panel:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(5,11,18,.5),0 0 32px rgba(176,75,214,.10)}
+.panel:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 14px 44px rgba(5,11,18,.5),0 0 32px rgba(176,75,214,.10)}
 .grid .panel{margin-top:0}
 .panel h3{margin:0 0 4px;font-size:16px}
 .panel h4{margin:16px 0 4px;font-size:13.5px}
@@ -172,14 +182,14 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
 .chartBox svg{width:100%;height:auto;display:block}
 .kvGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:720px){.kvGrid{grid-template-columns:repeat(2,1fr)}}
-.kv{background:var(--surface2);border:1px solid var(--faint);border-radius:16px;padding:12px;transition:transform .2s cubic-bezier(.16,1,.3,1),border-color .2s cubic-bezier(.16,1,.3,1)}
-.kv:hover{transform:translateY(-2px);border-color:rgba(238,244,246,.28)}
+.kv{background:var(--surface2);border:1px solid var(--faint);border-radius:16px;padding:12px;transition:transform .22s var(--spring),border-color .2s ease}
+.kv:hover{transform:translateY(-3px) scale(1.008);border-color:rgba(238,244,246,.28)}
 .kv label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted);display:block}
 .kv b{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:19px;display:block;margin-top:4px;word-break:break-word}
 .kv span{font-size:12px;color:var(--muted);display:block;margin-top:3px;line-height:1.45}
 .histList{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.histItem{background:var(--surface2);border:1px solid var(--faint);border-radius:16px;padding:13px 14px;transition:transform .2s cubic-bezier(.16,1,.3,1),border-color .2s cubic-bezier(.16,1,.3,1)}
-.histItem:hover{transform:translateY(-2px);border-color:rgba(238,244,246,.28)}
+.histItem{background:var(--surface2);border:1px solid var(--faint);border-radius:16px;padding:13px 14px;transition:transform .22s var(--spring),border-color .2s ease}
+.histItem:hover{transform:translateY(-3px) scale(1.008);border-color:rgba(238,244,246,.28)}
 .histItem .row1{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
 .histItem b.t{font-size:14px}
 .histItem .meta{color:var(--muted);font-size:12.5px;line-height:1.6;margin-top:4px}
@@ -246,14 +256,39 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
 }
 .leaflet-container{font-family:inherit}
 .homogPts{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:12.5px;line-height:1.7;margin-top:8px}
+/* === PLASMA MOTION — spring aurora 120/11 (aproksimasi CSS cubic-bezier overshoot),
+   field lapis kedua + shimmer, rim bergerak, pulse klik, entrance stagger.
+   Tanpa WebGL/library baru; tanpa perubahan logika. === */
+/* Entrance: kartu statistik masuk berurutan dengan overshoot spring. */
+.stats .stat{animation:cardIn .32s var(--spring) backwards}
+.stats .stat:nth-child(2){animation-delay:.04s}
+.stats .stat:nth-child(3){animation-delay:.08s}
+.stats .stat:nth-child(4){animation-delay:.12s}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px) scale(.99)}60%{opacity:1;transform:translateY(-1px) scale(1.003)}to{opacity:1;transform:none}}
+/* Rim iridescent bergerak pelan di panel kaca + kartu kamera. */
+.panel,.camCard{background-size:100% 100%,300% 300%}
+.panel{animation:rimShift 10s linear infinite}
+.camCard{animation:cardIn .32s var(--spring) backwards,rimShift 10s linear infinite}
+@keyframes rimShift{from{background-position:0 0,0% 50%}to{background-position:0 0,100% 50%}}
+/* Press kenyal di kontrol pill/tab. */
+.tabs button,.seg button,.tgl,.wizSteps button{transition:background-color .15s ease,color .15s ease,transform .2s var(--spring)}
+.tabs button:active,.seg button:active,.tgl:active,.wizSteps button:active{transform:scale(.94)}
+/* Cincin pulse saat klik area kosong (dibuat oleh skrip motion terisolasi di akhir body). */
+.pc-pulse{position:fixed;z-index:200;pointer-events:none;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;
+  border:2px solid rgba(159,243,228,.7);box-shadow:0 0 24px rgba(176,75,214,.35),inset 0 0 24px rgba(95,212,255,.18);
+  animation:pcPulse .7s cubic-bezier(.3,1.35,.4,1) forwards}
+@keyframes pcPulse{from{transform:scale(.25);opacity:.9}to{transform:scale(2.2);opacity:0}}
 /* Mobile: animasi plasma dimatikan — gradien statis di body tetap jalan. */
 @media (max-width:720px){
-  body::before{display:none}
+  body::before,body::after{display:none}
+  .panel,.camCard{animation:none}
+  .pc-pulse{display:none}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   html{scroll-behavior:auto}
-  body::before{animation:none}
+  body::before,body::after{animation:none}
+  .pc-pulse{display:none}
 }
 </style>
 
@@ -1687,7 +1722,7 @@ function drawOverlay(w,h){
   }
   if(cal.homogPoints.length){
     ctx.fillStyle='#fbbf24';
-    cal.homogPoints.forEach(function(p, i){ ctx.beginPath(); ctx.arc(p[0]*w, p[1]*h, 7, 0, Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.font='bold 11px sans-serif'; ctx.fillText(String(i+1), p[0]*w-3, p[1]*h+4); ctx.fillStyle='#fbbf24'; });
+    cal.homogPoints.forEach(function(p, i){ ctx.beginPath(); ctx.arc(p[0]*w, p[1]*h, 7, 0, Math.PI*2); ctx.fill(); ctx.fillStyle='#000'; ctx.font='bold 11px "JetBrains Mono",monospace'; ctx.fillText(String(i+1), p[0]*w-3, p[1]*h+4); ctx.fillStyle='#fbbf24'; });
     ctx.strokeStyle='rgba(251,191,36,.8)'; ctx.beginPath();
     cal.homogPoints.forEach(function(p, i){ if(i===0) ctx.moveTo(p[0]*w,p[1]*h); else ctx.lineTo(p[0]*w,p[1]*h); });
     if(cal.homogPoints.length===4) ctx.closePath(); ctx.stroke();
@@ -2982,6 +3017,27 @@ function applyCalToUI(){
   checkPWA();
   setInterval(function(){ persistSession(); }, 5000);
 })();
+})();
+</script>
+<script>
+/* PLASMA MOTION — pulse klik (TERISOLASI: tidak membaca/mengubah state, kamera,
+   penghitungan, skeleton, atau logika aplikasi apa pun; hanya membuat div cincin
+   lalu menghapusnya. Bila blok ini dihapus, aplikasi tetap berfungsi penuh.) */
+(function(){
+  var MAX=6;
+  document.addEventListener('pointerdown',function(e){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    if(window.innerWidth<=720)return;
+    if(e.target.closest('button,a,input,select,textarea,label,[role="button"],summary,[contenteditable],canvas,#map'))return;
+    if(document.querySelectorAll('.pc-pulse').length>=MAX)return;
+    var r=document.createElement('div');
+    r.className='pc-pulse';
+    r.style.left=e.clientX+'px';
+    r.style.top=e.clientY+'px';
+    r.addEventListener('animationend',function(){r.remove();});
+    document.body.appendChild(r);
+    setTimeout(function(){if(r.isConnected)r.remove();},900);
+  });
 })();
 </script>
 </body>
