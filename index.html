@@ -78,7 +78,7 @@ body::after{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none;
 @keyframes plasmaShimmer{0%,100%{opacity:.55}50%{opacity:.95}}
 h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;letter-spacing:.01em}
 a{color:#fff}
-button{min-height:44px;font-family:inherit}
+button{min-height:44px;font-family:inherit;cursor:pointer}
 ::selection{background:rgba(176,75,214,.45);color:#fff}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:#050b12}
@@ -92,11 +92,16 @@ button{min-height:44px;font-family:inherit}
 .topbar h1{font-size:clamp(1.5rem,2.5vw + .25rem,2rem);line-height:1.12;letter-spacing:.01em;margin:0;font-weight:600}
 .topbar h1 span{color:var(--muted)}
 .topbar p{margin:6px 0 0;color:var(--muted);font-size:13.5px;line-height:1.6;max-width:560px}
-.badges{display:flex;flex-direction:column;gap:7px;align-items:flex-end}
-.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;white-space:nowrap;backdrop-filter:blur(10px)}
+.badges{display:flex;flex-direction:column;gap:7px;align-items:flex-end;max-width:100%}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;max-width:100%;backdrop-filter:blur(10px)}
 .dot{width:9px;height:9px;border-radius:50%;background:#52525b;flex-shrink:0}
 .dot.live{background:#4ade80;box-shadow:0 0 0 5px rgba(74,222,128,.15);animation:pulse 1.6s infinite}
 .dot.loading{background:#fbbf24}.dot.paused{background:#f59e0b}.dot.err{background:#f87171}
+.spin{display:inline-block;width:14px;height:14px;flex-shrink:0;border-radius:50%;border:2px solid rgba(238,244,246,.35);border-top-color:#fff;animation:spin .8s linear infinite;vertical-align:-2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.dirDot{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0;vertical-align:-1px}
+.dirDot.in{background:#4ade80}.dirDot.out{background:#fbbf24}
+.confirmBar:focus{outline:2px solid #9ff3e4;outline-offset:2px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .tabs{display:flex;gap:4px;background:linear-gradient(160deg,rgba(20,40,52,.72),rgba(10,22,30,.6));border:1px solid var(--faint);border-radius:999px;padding:4px;margin-bottom:12px;flex-wrap:wrap;position:sticky;top:12px;z-index:50;backdrop-filter:blur(14px) saturate(1.2)}
 .tabs button{flex:1 1 auto;border:0;background:transparent;border-radius:999px;font-weight:600;font-size:13.5px;cursor:pointer;color:rgba(238,244,246,.55);padding:0 12px;white-space:nowrap;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
@@ -143,7 +148,7 @@ canvas#overlay.editable{pointer-events:auto;touch-action:none;cursor:crosshair}
 .btn.primary.stop{background:var(--danger-fill);color:#fff}
 .btn.warnb{background:#f59e0b;color:#08080a;border-color:transparent}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.btn.small{min-height:40px;font-size:13px;padding:0 12px}
+.btn.small{min-height:44px;font-size:13px;padding:0 12px}
 .btn.danger{color:var(--danger);border-color:rgba(248,113,113,.5)}
 .btn.ghost{background:transparent}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
@@ -154,6 +159,7 @@ canvas#overlay.editable{pointer-events:auto;touch-action:none;cursor:crosshair}
 .panel:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 14px 44px rgba(5,11,18,.5),0 0 32px rgba(176,75,214,.10)}
 .grid .panel{margin-top:0}
 .panel h3{margin:0 0 4px;font-size:16px}
+.panel h2{margin:0 0 4px;font-size:16px}
 .panel h4{margin:16px 0 4px;font-size:13.5px}
 .panel p.desc{margin:0;color:var(--muted);font-size:13px;line-height:1.55;overflow-wrap:anywhere}
 .panel p,.statusCard p,.pointList li,.histItem .meta,.logList li .why{overflow-wrap:anywhere}
@@ -166,7 +172,7 @@ textarea{min-height:64px;resize:vertical}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:560px){.frow{grid-template-columns:1fr}}
 .seg{display:flex;background:rgba(0,0,0,.22);border:1px solid rgba(238,244,246,.05);border-radius:999px;padding:4px;gap:4px;flex-wrap:wrap}
-.seg button{flex:1;border:0;background:transparent;border-radius:999px;font-weight:600;font-size:12.5px;cursor:pointer;color:rgba(238,244,246,.55);min-height:38px;padding:0 8px;white-space:nowrap;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
+.seg button{flex:1;border:0;background:transparent;border-radius:999px;font-weight:600;font-size:12.5px;cursor:pointer;color:rgba(238,244,246,.55);min-height:44px;padding:0 8px;white-space:nowrap;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
 .seg button.active{background:var(--on);color:var(--on-text);box-shadow:none}
 .tglRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .tgl{border:1px solid var(--line);background:var(--surface2);color:var(--muted);border-radius:999px;padding:0 14px;font-weight:600;font-size:13px;cursor:pointer;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
@@ -177,8 +183,8 @@ textarea{min-height:64px;resize:vertical}
 .logList li .why{color:var(--muted);font-size:12px;display:block;margin-top:2px;line-height:1.45}
 .logList li.suspect{outline:2px solid #f59e0b;outline-offset:-2px}
 .logList time{color:var(--muted);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:11.5px;white-space:nowrap}
-.reviewBtns{display:flex;gap:6px;margin-top:6px}
-.reviewBtns button{min-height:34px;font-size:12px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer;color:var(--text)}
+.reviewBtns{display:flex;gap:8px;margin-top:6px}
+.reviewBtns button{min-height:44px;font-size:12px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer;color:var(--text)}
 .emptyLog{color:var(--muted);font-size:13px;padding:12px;background:var(--surface2);border-radius:12px;text-align:center;margin-top:12px;line-height:1.55}
 .tips ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13.5px;line-height:1.7}
 .tips li b{color:var(--text)}
@@ -212,7 +218,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
 .histItem .meta{color:var(--muted);font-size:12.5px;line-height:1.6;margin-top:4px}
 .histItem .nums{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-weight:600}
 .histItem .acts{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
-.histItem .acts button{min-height:36px;font-size:12.5px;padding:0 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer;color:var(--text)}
+.histItem .acts button{min-height:44px;font-size:12.5px;padding:0 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer;color:var(--text)}
 .scenList{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
 .scenList li{display:flex;gap:10px;font-size:13.5px;background:var(--surface2);border-radius:12px;padding:9px 12px;align-items:baseline;line-height:1.5}
 .scenList li .n{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;color:#fff;font-weight:600;flex-shrink:0}
@@ -244,7 +250,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
 .pointList li .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:12px}
 .wizard{border:1px solid var(--faint);border-radius:var(--radius);background:var(--plate);padding:16px;margin-top:12px;display:none;backdrop-filter:blur(12px)}
 .wizard.open{display:block}
-.wizSteps{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0 4px}
+.wizSteps{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
 .wizSteps button{flex:1 1 30%;border:1px solid var(--line);background:var(--surface2);border-radius:12px;font-size:12px;font-weight:600;padding:8px 6px;cursor:pointer;color:var(--muted);min-height:44px;transition:background-color .15s cubic-bezier(.16,1,.3,1),color .15s cubic-bezier(.16,1,.3,1)}
 .wizSteps button.active{background:var(--on);color:var(--on-text);border-color:transparent}
 .wizSteps button.done{border-color:rgba(238,244,246,.35);color:#fff}
@@ -268,7 +274,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
 .tabs button svg{flex-shrink:0}
 @media(max-width:959px){
   .tabs{position:fixed;top:auto;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:60;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.5);flex-wrap:nowrap;background:linear-gradient(160deg,rgba(20,40,52,.85),rgba(10,22,30,.75));border-color:var(--faint)}
-  .tabs button{flex-direction:column;gap:3px;font-size:11px;padding:7px 4px;min-height:52px}
+  .tabs button{flex-direction:column;gap:3px;font-size:12px;padding:7px 4px;min-height:52px}
   body{padding-bottom:86px}
 }
 .leaflet-container{font-family:inherit}
@@ -333,16 +339,16 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
   </div>
 
   <nav class="tabs" role="tablist" aria-label="Navigasi utama">
-    <button class="active" data-tab="live" role="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Live Counter</span></button>
-    <button data-tab="history" role="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg><span>Riwayat</span></button>
-    <button data-tab="analytics" role="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg><span>Analitik</span></button>
-    <button data-tab="settings" role="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Pengaturan</span></button>
+    <button class="active" data-tab="live" role="tab" aria-selected="true" aria-controls="page-live"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Live Counter</span></button>
+    <button data-tab="history" role="tab" aria-selected="false" aria-controls="page-history"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg><span>Riwayat</span></button>
+    <button data-tab="analytics" role="tab" aria-selected="false" aria-controls="page-analytics"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg><span>Analitik</span></button>
+    <button data-tab="settings" role="tab" aria-selected="false" aria-controls="page-settings"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Pengaturan</span></button>
   </nav>
 
   <!-- ============ LIVE COUNTER ============ -->
   <div class="tabpage active" id="page-live">
     <section class="panel" style="margin-top:0">
-      <h3>Mulai dalam 3 langkah</h3>
+      <h2>Mulai dalam 3 langkah</h2>
       <p class="desc">Aplikasi ini menghitung orang yang melewati garis gate dari kamera HP — semua pemrosesan di perangkat ini, video tidak diunggah. <b>1.</b> Tekan <b>Buka Kamera</b> dan izinkan kamera (pratinjau + overlay AI jalan, belum menghitung). <b>2.</b> Atur posisi gate di panel Gate — bisa digeser langsung di video. <b>3.</b> Tekan <b>Mulai Hitung</b>. Lokasi GPS dan kalibrasi bersifat <b>opsional</b>: atur di Pengaturan bila perlu, sesi tetap tercatat tanpanya. Konfigurasi terakhir (gate, kalibrasi, pengaturan) dimuat otomatis saat kembali.</p>
     </section>
 
@@ -394,7 +400,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
     <div class="warnBox" id="warnBox"></div>
     <div class="warnBox" id="motionBox"></div>
     <div class="warnBox" id="moveBox"></div>
-    <div class="confirmBar" id="confirmBar"><span id="confirmMsg"></span><div class="row"><button class="btn small" id="btnConfirmYes" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, lanjutkan</button><button class="btn small" id="btnConfirmNo">Batal</button></div></div>
+    <div class="confirmBar" id="confirmBar" tabindex="-1" role="group" aria-label="Konfirmasi"><span id="confirmMsg"></span><div class="row"><button class="btn small" id="btnConfirmYes" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, lanjutkan</button><button class="btn small" id="btnConfirmNo">Batal</button></div></div>
 
     <div class="grid">
       <section class="panel">
@@ -475,7 +481,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
           <button class="btn small" id="btnExportJson">Ekspor Sesi (JSON)</button>
           <button class="btn small" id="btnCopy">Salin Ringkasan</button>
         </div>
-        <div class="notice" id="copyNotice" style="display:none"></div>
+        <div class="notice" id="copyNotice" style="display:none" role="status" aria-live="polite"></div>
       </section>
     </div>
   </div>
@@ -543,7 +549,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
       </div>
       <div id="laTableWrap"><p class="desc" style="margin-top:10px">Belum ada sesi tersimpan dengan lokasi.</p></div>
       <div class="tglRow"><button class="btn small" id="btnLaCsv">Ekspor Location Analytics (CSV)</button><button class="btn small" id="btnLaJson">Ekspor (JSON)</button><button class="btn small danger" id="btnWipeLocHist">Hapus Riwayat Lokasi</button></div>
-      <div class="confirmBar" id="confirmBarLoc"><span id="confirmMsgLoc"></span><div class="row"><button class="btn small" id="btnConfirmYesLoc" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus</button><button class="btn small" id="btnConfirmNoLoc">Batal</button></div></div>
+      <div class="confirmBar" id="confirmBarLoc" tabindex="-1" role="group" aria-label="Konfirmasi"><span id="confirmMsgLoc"></span><div class="row"><button class="btn small" id="btnConfirmYesLoc" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus</button><button class="btn small" id="btnConfirmNoLoc">Batal</button></div></div>
     </section>
   </div>
 
@@ -559,7 +565,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
         <button class="btn small" id="btnHistJson">Ekspor Riwayat (JSON)</button>
         <button class="btn small danger" id="btnClearHist">Hapus Semua Riwayat</button>
       </div>
-      <div class="confirmBar" id="confirmBar2"><span id="confirmMsg2"></span><div class="row"><button class="btn small" id="btnConfirmYes2" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus</button><button class="btn small" id="btnConfirmNo2">Batal</button></div></div>
+      <div class="confirmBar" id="confirmBar2" tabindex="-1" role="group" aria-label="Konfirmasi"><span id="confirmMsg2"></span><div class="row"><button class="btn small" id="btnConfirmYes2" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus</button><button class="btn small" id="btnConfirmNo2">Batal</button></div></div>
     </section>
     <section class="panel">
       <h3>Privasi &amp; Data yang Disimpan</h3>
@@ -604,7 +610,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
           <button class="btn small" id="btnExportAll">Ekspor Semua Data (JSON)</button>
           <button class="btn small danger" id="btnWipeAll">Hapus Semua Data Lokal</button>
         </div>
-        <div class="confirmBar" id="confirmBar3"><span id="confirmMsg3"></span><div class="row"><button class="btn small" id="btnConfirmYes3" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus semua</button><button class="btn small" id="btnConfirmNo3">Batal</button></div></div>
+        <div class="confirmBar" id="confirmBar3" tabindex="-1" role="group" aria-label="Konfirmasi"><span id="confirmMsg3"></span><div class="row"><button class="btn small" id="btnConfirmYes3" style="background:var(--danger-fill);color:#fff;border-color:transparent">Ya, hapus semua</button><button class="btn small" id="btnConfirmNo3">Batal</button></div></div>
         <div class="notice">Model deteksi: <b>COCO-SSD (MobileNetV2 lite)</b> via TensorFlow.js. Pose: <b>MoveNet Lightning</b> via pose-detection, berjalan terpisah dan <b>hanya bila toggle Skeleton aktif</b> (default mati). Tracking: asosiasi IoU + jarak dengan prediksi gerak, smoothing EMA, hysteresis sisi gate, cooldown, dan masa tenggang oklusi. Footpoint: bila Skeleton aktif dan keypoint pergelangan kaki cukup yakin, footpoint diambil dari pose (tercatat di track sebagai sumber “pose”); bila tidak, fallback ke titik bawah kotak yang dihaluskan. Bila model pose gagal dimuat di perangkat ini, status ditampilkan apa adanya sebagai <b>“Pose tidak tersedia di perangkat ini”</b> dan counting tetap berjalan dengan footpoint bounding box — skeleton tidak pernah diklaim aktif bila tidak aktif.</div>
       </section>
     </div>
@@ -778,7 +784,7 @@ table.dbg td{padding:6px 8px;border-bottom:1px solid var(--line)}
       <h4>Alamat / Nama Tempat (diisi manual)</h4>
       <p class="desc" id="geoStatus">Reverse geocoding otomatis <b>dimatikan</b> supaya halaman ini bisa dibagikan sebagai link publik — koordinat GPS kamu <b>tidak dikirim ke layanan eksternal mana pun</b>. Isi alamat atau nama tempat sendiri di kolom di bawah; aplikasi tidak mengarang alamat. Bila kolom kosong, yang ditampilkan hanya koordinat dan nama tempat yang kamu isi.</p>
       <div class="field"><label for="locAddress">Alamat / nama tempat (manual)</label><input type="text" id="locAddress" placeholder="ketik alamat / nama tempat ini sesuai yang kamu ketahui" maxlength="160"></div>
-      <div class="tglRow"><a class="btn small" id="osmLink" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Lihat titik ini di OpenStreetMap ↗</a></div>
+      <div class="tglRow"><a class="btn small" id="osmLink" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none">Lihat titik ini di OpenStreetMap <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a></div>
       <p class="desc">Tautan di atas hanya membuka halaman OpenStreetMap untuk koordinat tersebut saat kamu mengekliknya — bukan integrasi data, dan tidak ada alamat yang diambil otomatis dari sana.</p>
     </section>
 
@@ -1062,7 +1068,8 @@ function hideError(){ $('errorBox').style.display='none'; }
 function showWarn(msg){ var b=$('warnBox'); b.style.display='block'; b.innerHTML=msg; }
 function hideWarn(){ $('warnBox').style.display='none'; }
 var confirmCb=null, confirmCtx=null;
-function askConfirm(barId, msgId, msg, cb){ $(msgId).textContent=msg; $(barId).style.display='block'; confirmCb=cb; confirmCtx=barId; $(barId).scrollIntoView({behavior:'smooth',block:'nearest'}); }
+function askConfirm(barId, msgId, msg, cb){ $(msgId).textContent=msg; $(barId).style.display='block'; confirmCb=cb; confirmCtx=barId; $(barId).scrollIntoView({behavior:'smooth',block:'nearest'}); $(barId).focus({preventScroll:true}); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&confirmCtx){ $(confirmCtx).style.display='none'; confirmCb=null; confirmCtx=null; } });
 [['confirmBar','btnConfirmYes','btnConfirmNo'],['confirmBar2','btnConfirmYes2','btnConfirmNo2'],['confirmBar3','btnConfirmYes3','btnConfirmNo3'],['confirmBarLoc','btnConfirmYesLoc','btnConfirmNoLoc']].forEach(function(t){
   $(t[1]).addEventListener('click', function(){ $(t[0]).style.display='none'; if(confirmCtx===t[0] && confirmCb) confirmCb(); if(confirmCtx===t[0]){ confirmCb=null; confirmCtx=null; } });
   $(t[2]).addEventListener('click', function(){ $(t[0]).style.display='none'; if(confirmCtx===t[0]){ confirmCb=null; confirmCtx=null; } });
@@ -1102,13 +1109,14 @@ document.querySelectorAll('.tabs button').forEach(function(b){
   b.addEventListener('click', function(){
     document.querySelectorAll('.tabs button').forEach(function(x){ x.classList.remove('active'); });
     b.classList.add('active');
+    document.querySelectorAll('.tabs button').forEach(function(x){ x.setAttribute('aria-selected', x===b?'true':'false'); });
     var tab=b.getAttribute('data-tab');
     TABLIST.forEach(function(t){ $('page-'+t).classList.toggle('active', t===tab); });
     onTabShown(tab);
   });
 });
 function gotoTab(tab){
-  document.querySelectorAll('.tabs button').forEach(function(x){ x.classList.toggle('active', x.getAttribute('data-tab')===tab); });
+  document.querySelectorAll('.tabs button').forEach(function(x){ x.classList.toggle('active', x.getAttribute('data-tab')===tab); x.setAttribute('aria-selected', x.getAttribute('data-tab')===tab?'true':'false'); });
   TABLIST.forEach(function(t){ $('page-'+t).classList.toggle('active', t===tab); });
   onTabShown(tab);
   window.scrollTo({top:0, behavior:'smooth'});
@@ -1285,21 +1293,21 @@ function renderLog(){
     if(l.status==='suspected') li.className='suspect';
     var left=document.createElement('span');
     if(l.type==='cross'){
-      left.innerHTML=(l.dir==='in'?'🟢 ':'🟠 ')+'<b>'+dirName(l.dir)+'</b> · '+esc(l.gateName||'Gate')+' <span style="color:var(--muted)">(AI'+(l.trackId?', track #'+l.trackId:'')+(l.score!=null?', conf '+Math.round(l.score*100)+'%':'')+')</span>'+
-        (l.status==='suspected'?'<span class="why">⚠ <b>DIDUGA (suspected)</b> — track muda / confidence rendah / gerak terlalu cepat. Tinjau: benar lewat atau salah hitung?</span>':'')+
+      left.innerHTML=(l.dir==='in'?'<span class="dirDot in" aria-hidden="true"></span> ':'<span class="dirDot out" aria-hidden="true"></span> ')+'<b>'+dirName(l.dir)+'</b> · '+esc(l.gateName||'Gate')+' <span style="color:var(--muted)">(AI'+(l.trackId?', track #'+l.trackId:'')+(l.score!=null?', conf '+Math.round(l.score*100)+'%':'')+')</span>'+
+        (l.status==='suspected'?'<span class="why"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <b>DIDUGA (suspected)</b> — track muda / confidence rendah / gerak terlalu cepat. Tinjau: benar lewat atau salah hitung?</span>':'')+
         (l.status==='rejected'?'<span class="why">Ditolak saat peninjauan — tidak masuk hitungan.</span>':'')+
         (l.status==='confirmed'?'<span class="why">Dikonfirmasi pengguna saat peninjauan.</span>':'');
       if(l.status==='suspected'){
         var rb=document.createElement('span'); rb.className='reviewBtns';
-        var bOk=document.createElement('button'); bOk.textContent='✓ Benar, pertahankan';
-        var bNo=document.createElement('button'); bNo.textContent='✕ Salah, tolak';
+        var bOk=document.createElement('button'); bOk.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Benar, pertahankan';
+        var bNo=document.createElement('button'); bNo.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Salah, tolak';
         (function(ev){ bOk.addEventListener('click', function(){ reviewEvent(ev,'confirmed'); }); bNo.addEventListener('click', function(){ reviewEvent(ev,'rejected'); }); })(l);
         rb.appendChild(bOk); rb.appendChild(bNo); left.appendChild(rb);
       }
     } else if(l.type==='corr'){
-      left.innerHTML='✎ <b>Koreksi '+(l.delta>0?'+':'')+l.delta+' '+dirName(l.dir)+'</b> · '+esc(l.gateName||'Gate')+(l.reason?'<span class="why">Alasan: '+esc(l.reason)+'</span>':'<span class="why">tanpa alasan tercatat</span>');
+      left.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg> <b>Koreksi '+(l.delta>0?'+':'')+l.delta+' '+dirName(l.dir)+'</b> · '+esc(l.gateName||'Gate')+(l.reason?'<span class="why">Alasan: '+esc(l.reason)+'</span>':'<span class="why">tanpa alasan tercatat</span>');
     } else {
-      left.innerHTML='ℹ <span>'+esc(l.reason||l.dir||'Catatan')+'</span>';
+      left.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <span>'+esc(l.reason||l.dir||'Catatan')+'</span>';
     }
     var t=document.createElement('time'); t.textContent=l.time||fmtTime(l.ts);
     li.appendChild(left); li.appendChild(t); list.appendChild(li);
@@ -1325,11 +1333,11 @@ function renderGateList(){
     var card=document.createElement('div'); card.className='gateCard';
     var head=document.createElement('div'); head.className='ghead';
     head.innerHTML='<span class="swatch" style="background:'+g.color+'"></span>';
-    var nameIn=document.createElement('input'); nameIn.type='text'; nameIn.value=g.name; nameIn.maxLength=30; nameIn.style.cssText='flex:1;min-height:38px;padding:6px 10px'; nameIn.setAttribute('aria-label','Nama gate');
+    var nameIn=document.createElement('input'); nameIn.type='text'; nameIn.value=g.name; nameIn.maxLength=30; nameIn.style.cssText='flex:1;min-height:44px;padding:6px 10px'; nameIn.setAttribute('aria-label','Nama gate');
     nameIn.addEventListener('change', function(){ g.name=nameIn.value.trim()||g.name; persistGates(); renderCorrGateOptions(); });
-    var tgl=document.createElement('button'); tgl.className='tgl'+(g.enabled?' on':''); tgl.textContent=g.enabled?'Aktif':'Nonaktif'; tgl.style.minHeight='38px';
+    var tgl=document.createElement('button'); tgl.className='tgl'+(g.enabled?' on':''); tgl.textContent=g.enabled?'Aktif':'Nonaktif'; tgl.style.minHeight='44px';
     tgl.addEventListener('click', function(){ g.enabled=!g.enabled; tgl.className='tgl'+(g.enabled?' on':''); tgl.textContent=g.enabled?'Aktif':'Nonaktif'; persistGates(); });
-    var del=document.createElement('button'); del.className='btn small danger'; del.textContent='Hapus'; del.style.minHeight='38px';
+    var del=document.createElement('button'); del.className='btn small danger'; del.textContent='Hapus'; del.style.minHeight='44px';
     del.addEventListener('click', function(){
       if(gates.length<=1){ showWarn('<b>Minimal satu gate harus ada.</b> Nonaktifkan saja gate ini bila tidak dipakai.'); return; }
       gates=gates.filter(function(x){ return x.id!==g.id; }); persistGates(); renderGateList(); renderCorrGateOptions();
@@ -1484,9 +1492,9 @@ async function openCamera(){
   }
   try{
     setStatus('loading','Menyiapkan kamera…');
-    $('btnOpen').disabled=true; $('btnOpen').textContent='⏳ Memuat model AI…';
+    $('btnOpen').disabled=true; $('btnOpen').innerHTML='<span class="spin" aria-hidden="true"></span> Memuat model AI…';
     await loadModel();
-    $('btnOpen').textContent='⏳ Membuka kamera…';
+    $('btnOpen').innerHTML='<span class="spin" aria-hidden="true"></span> Membuka kamera…';
     await openStream();
     cameraOpen=true; running=true; paused=false; motionPaused=false; prevGray=null; motionOffset={x:0,y:0};
     orientationAtStart=orientationLabel(); lastOrientation=orientationAtStart;
@@ -1558,7 +1566,7 @@ function endSession(){
   counting=false; paused=false;
   if(cameraOpen) setStatus('paused','Kamera terbuka — pratinjau (belum menghitung)');
   syncControlUI();
-  var n=$('copyNotice'); n.style.display='block'; n.textContent='✓ Sesi disimpan ke Riwayat (IndexedDB) dan diakhiri. Kamera tetap terbuka untuk pratinjau — mulai sesi baru kapan saja.';
+  var n=$('copyNotice'); n.style.display='block'; n.textContent='Sesi disimpan ke Riwayat (IndexedDB) dan diakhiri. Kamera tetap terbuka untuk pratinjau — mulai sesi baru kapan saja.';
   setTimeout(function(){ n.style.display='none'; }, 4000);
 }
 function finishSession(status){
@@ -2133,7 +2141,7 @@ $('btnWizSave').addEventListener('click', function(){
   cal.updatedAt=new Date().toISOString();
   computeWizMetrics(false);
   persistCal(); renderDashboard();
-  var n=$('copyNotice'); n.style.display='block'; n.textContent='✓ Kalibrasi tersimpan di IndexedDB ('+new Date(cal.updatedAt).toLocaleString('id-ID')+'). Akan dimuat lagi otomatis setelah reload.';
+  var n=$('copyNotice'); n.style.display='block'; n.textContent='Kalibrasi tersimpan di IndexedDB ('+new Date(cal.updatedAt).toLocaleString('id-ID')+'). Akan dimuat lagi otomatis setelah reload.';
   setTimeout(function(){ n.style.display='none'; }, 4000);
 });
 $('btnWzCheck').addEventListener('click', function(){
@@ -2209,7 +2217,7 @@ $('btnHomogCalc').addEventListener('click', function(){
   err/=4;
   cal.homog=H; cal.reprojErr=Math.round(err*1000)/1000; cal.floorW=hasSize?fw:null; cal.floorL=hasSize?fl:null; cal.homogUnit=hasSize?'meter':'unit';
   cal.stepsDone[4]=true; persistCal();
-  res.innerHTML='✓ Homography tersimpan. Satuan bidang tanah: <b>'+(hasSize?('meter ('+fw+' × '+fl+' m)'):'satuan ternormalisasi (tanpa ukuran meter — bukan skala nyata)')+'</b>. Galat reproyeksi rata-rata di 4 titik: <b>'+cal.reprojErr+' '+(hasSize?'m':'unit')+'</b>. Footpoint kini bisa dipetakan ke bidang tanah; akurasi metrik tetap bergantung pada ketepatan titik & kerataan lantai.';
+  res.innerHTML='Homography tersimpan. Satuan bidang tanah: <b>'+(hasSize?('meter ('+fw+' × '+fl+' m)'):'satuan ternormalisasi (tanpa ukuran meter — bukan skala nyata)')+'</b>. Galat reproyeksi rata-rata di 4 titik: <b>'+cal.reprojErr+' '+(hasSize?'m':'unit')+'</b>. Footpoint kini bisa dipetakan ke bidang tanah; akurasi metrik tetap bergantung pada ketepatan titik & kerataan lantai.';
   renderQC();
 });
 // Lens & camera mode
@@ -2473,7 +2481,7 @@ function renderFavList(){
     var left=document.createElement('span');
     left.innerHTML='<b>'+esc(f.name)+'</b><span class="why">'+esc([f.building,f.floor,f.area].filter(Boolean).join(' · '))+(f.lat!=null?(' · '+Number(f.lat).toFixed(5)+','+Number(f.lng).toFixed(5)):' · tanpa GPS')+'</span>';
     var acts=document.createElement('span'); acts.style.display='flex'; acts.style.gap='6px';
-    var use=document.createElement('button'); use.className='btn small'; use.textContent='Pakai'; use.style.minHeight='36px';
+    var use=document.createElement('button'); use.className='btn small'; use.textContent='Pakai'; use.style.minHeight='44px';
     use.addEventListener('click', function(){
       $('locName').value=f.name||''; $('locBuilding').value=f.building||''; $('locFloor').value=f.floor||''; $('locArea').value=f.area||''; $('locZone').value=f.zone||'';
       $('locAddress').value=(typeof f.address==='string')?f.address:'';
@@ -2481,7 +2489,7 @@ function renderFavList(){
         $('locLat').textContent=Number(f.lat).toFixed(6); $('locLng').textContent=Number(f.lng).toFixed(6); $('locPlus').textContent=f.plusCode||'—'; updateOsmLink(f.lat, f.lng); }
       initMap(); updateMapPoints();
     });
-    var del=document.createElement('button'); del.className='btn small danger'; del.textContent='Hapus'; del.style.minHeight='36px';
+    var del=document.createElement('button'); del.className='btn small danger'; del.textContent='Hapus'; del.style.minHeight='44px';
     del.addEventListener('click', function(){ favorites=favorites.filter(function(x){ return x.id!==f.id; }); if(dbReady) idbDel('favorites', f.id).catch(function(){}); renderFavList(); });
     acts.appendChild(use); acts.appendChild(del);
     li.appendChild(left); li.appendChild(acts); list.appendChild(li);
@@ -2541,7 +2549,7 @@ function updateMapPoints(){
     bounds.push([gpsNow.lat, gpsNow.lng]);
   }
   if(cur&&cur.location&&cur.location.lat!=null){
-    var icon=L.divIcon({className:'', html:'<div style="background:#0a7a4b;color:#fff;border:2px solid #fff;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-size:12px;font-weight:800;box-shadow:0 1px 6px rgba(0,0,0,.4)">◎</div>', iconSize:[22,22], iconAnchor:[11,11]});
+    var icon=L.divIcon({className:'', html:'<div style="background:#0a7a4b;color:#fff;border:2px solid #fff;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-size:12px;font-weight:800;box-shadow:0 1px 6px rgba(0,0,0,.4)"><span style="display:block;width:8px;height:8px;border-radius:50%;background:#fff"></span></div>', iconSize:[22,22], iconAnchor:[11,11]});
     L.marker([cur.location.lat, cur.location.lng], {icon:icon}).addTo(mapLayers).bindPopup('Lokasi penghitungan sesi<br>'+esc(cur.location.name||'tanpa nama'));
     bounds.push([cur.location.lat, cur.location.lng]);
   }
@@ -2573,7 +2581,7 @@ function barChart(el, data, colorIn, colorOut){
     svg+='<text x="'+cx+'" y="'+(base-hIn-hOut-6)+'" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">'+(d.inV+d.outV)+'</text>';
     svg+='<text x="'+cx+'" y="'+(base+18)+'" text-anchor="middle" font-size="10.5" fill="currentColor" opacity=".65">'+esc(d.label)+'</text>';
   });
-  svg+='</svg><div style="font-size:12px;color:var(--muted);margin-top:6px"><span style="color:'+colorIn+'">■</span> Masuk &nbsp; <span style="color:'+colorOut+'">■</span> Keluar</div>';
+  svg+='</svg><div style="font-size:12px;color:var(--muted);margin-top:6px"><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+colorIn+';vertical-align:-1px"></span> Masuk &nbsp; <span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+colorOut+';vertical-align:-1px"></span> Keluar</div>';
   el.innerHTML=svg;
 }
 function renderAnalytics(){
@@ -2846,7 +2854,7 @@ $('btnExportJson').addEventListener('click', function(){
 $('btnCopy').addEventListener('click', function(){
   var text='PRATA AI People Counter\nTotal lewat: '+totalAll()+'\nMasuk: '+totalIn()+'\nKeluar: '+totalOut()+'\nLokasi: '+((cur&&cur.location&&cur.location.name)||'tidak diatur')+'\nDurasi sesi: '+fmtDur(sessionElapsedMs())+'\nWaktu salin: '+new Date().toLocaleString('id-ID');
   var notice=$('copyNotice');
-  function done(){ notice.style.display='block'; notice.textContent='✓ Ringkasan tersalin: Total '+totalAll()+' orang (Masuk '+totalIn()+', Keluar '+totalOut()+').'; setTimeout(function(){ notice.style.display='none'; }, 3000); }
+  function done(){ notice.style.display='block'; notice.textContent='Ringkasan tersalin: Total '+totalAll()+' orang (Masuk '+totalIn()+', Keluar '+totalOut()+').'; setTimeout(function(){ notice.style.display='none'; }, 3000); }
   if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(done); else done();
 });
 $('btnAddGate').addEventListener('click', function(){
